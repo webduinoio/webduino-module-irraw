@@ -1,6 +1,6 @@
 <category id="catIrRaw" tags="fly,mark1">
   <block type="variables_set">
-    <field name="VAR">irraw</field>
+    <field name="VAR">irrawrecv</field>
     <value name="VALUE">
       <block type="irraw_new_recv">
         <field name="pin_">10</field>

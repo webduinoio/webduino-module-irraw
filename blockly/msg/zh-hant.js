@@ -1,1 +1,1 @@
-MSG.catIrRaw = '側錄紅外線';
+MSG.catIrRaw = '冷氣紅外線';

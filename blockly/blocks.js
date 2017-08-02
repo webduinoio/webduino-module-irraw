@@ -25,7 +25,7 @@ Blockly.Blocks['irraw_new_send'] = {
 Blockly.Blocks['irraw_val'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(new Blockly.FieldVariable("irraw"), "name_")
+      .appendField(new Blockly.FieldVariable("irrawrecv"), "name_")
       .appendField(Blockly.Msg.WEBDUINO_IRRAW_CODE, "側錄的代碼");
     this.setOutput(true);
     this.setColour(35);
@@ -37,7 +37,7 @@ Blockly.Blocks['irraw_val'] = {
 Blockly.Blocks['irraw_on'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(new Blockly.FieldVariable("irraw"), "name_")
+      .appendField(new Blockly.FieldVariable("irrawrecv"), "name_")
       .appendField(Blockly.Msg.WEBDUINO_IRRAW_ON, "開始接收");
     this.appendStatementInput("on_")
       .appendField(Blockly.Msg.WEBDUINO_IRRAW_DO, "執行：");
