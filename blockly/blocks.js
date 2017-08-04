@@ -1,5 +1,5 @@
 var mainUrl = 'https://tutorials.webduino.io/zh-tw/docs/';
-var utmUrl = '?utm_source=cloud-blockly&utm_campaign=help_url';
+var utmUrl = '?utm_source=cloud-blockly&utm_medium=contextMenu&utm_campaign=tutorials';
 
 Blockly.Blocks['irraw_new_recv'] = {
   init: function () {
