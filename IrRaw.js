@@ -105,11 +105,11 @@
     }
   });
 
-  proto.recv = function (callback) {
+  proto.receive = function (callback) {
     self.irRecvCallback = callback;
     if (self.pinRecvIR > 0) {
       self._board.send([0xF0, 0x04, 0x09, 0x0D, self.pinRecvIR, 0xF7]);
-      log("wait recv...");
+      log("wait for receiving...");
     }
   };
 

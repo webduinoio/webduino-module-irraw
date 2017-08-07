@@ -13,7 +13,7 @@ Blockly.JavaScript['irraw_new_recv'] = function (block) {
 Blockly.JavaScript['irraw_on'] = function (block) {
   var variable_name_ = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('name_'), Blockly.Variables.NAME_TYPE);
   var statements_on_ = Blockly.JavaScript.statementToCode(block, 'on_');
-  var code = variable_name_ + '.recv(async function(val){\n' +
+  var code = variable_name_ + '.receive(async function(val){\n' +
     '  ' + variable_name_ + '.onVal = val;\n' +
     statements_on_ +
     '});\n';
