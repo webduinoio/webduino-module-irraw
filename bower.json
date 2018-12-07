@@ -3,7 +3,7 @@
   "description": "Infrared Transmitting and Receiving Module for Webduino",
   "main": "IrRaw.js",
   "authors": "",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
     "arduino",
     "webduino",
