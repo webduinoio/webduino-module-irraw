@@ -23,6 +23,7 @@
   function IrRaw(board, pinMapping) {
     Module.call(this);
     this._board = board;
+    this._irInfo = "";
     this.pinSendIR = this.pinRecvIR = -1;
     // this = this;
     if (typeof pinMapping === 'object') {
@@ -40,6 +41,7 @@
     self._board.on(webduino.BoardEvent.SYSEX_MESSAGE, function (event) {
       var m = event.message;
       //send IR data to Board
+      
       if (m[0] == 0x04 && m[1] == 0x09 && m[2] == 0x0B) {
         log("send IR data to Board callback");
         if (lastSendIR) {
@@ -57,13 +59,18 @@
       //record IR data
       else if (m[0] == 0x04 && m[1] == 0x09 && m[2] == 0x0D) {
         log("record IR callback...");
-        var strInfo = '';
+        var strData = "";
         for (var i = 3; i < m.length; i++) {
-          strInfo += String.fromCharCode(m[i]);
+          strData += String.fromCharCode(m[i]);
         }      
-        self.irData = strInfo;
-        self.irRecvCallback(self.irData);
-      } else {
+        self._irInfo += strData;
+        
+      } 
+      else if (m[0] == 0x04 && m[1] == 0x09 && m[2] == 0x0E) {
+        self.irRecvCallback(self._irInfo);
+        self._irInfo = "";
+      }
+      else {
         log(event);
       }
     });
@@ -106,7 +113,6 @@
   });
 
   proto.receive = function (callback) {
-    console.log("receive:" + this.pinRecvIR);
     this.irRecvCallback = callback;
     if (this.pinRecvIR > 0) {
       // this._board.send([0xF0, 0x04, 0x09, 0x0D, this.pinRecvIR, 0xF7]);
@@ -116,7 +122,6 @@
   };
 
   proto.send = function (data, callback) {
-    console.log("send:" + this.pinSendIR);
     if (this.pinSendIR > 0) {
       sendIRCmd(data, sendLen, this);
       this.irSendCallback = callback;
