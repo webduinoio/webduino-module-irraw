@@ -1,1 +1,1 @@
-MSG.catIrRawV2 = '冷氣V2';
+MSG.catIrRaw = '冷氣紅外線';
