@@ -4,3 +4,4 @@ Blockly.Msg.WEBDUINO_IRRAW_LAUNCHCODE = '發射代碼 ( 十六進位 )';
 Blockly.Msg.WEBDUINO_IRRAW_ON = '開始接收冷氣紅外線';
 Blockly.Msg.WEBDUINO_IRRAW_CODE = '接收的代碼';
 Blockly.Msg.WEBDUINO_IRRAW_DO = '執行';
+Blockly.Msg.WEBDUINO_IRRAW_STOP_RECV = '停止偵測';

@@ -65,3 +65,16 @@ Blockly.Blocks['irraw_launch'] = {
     this.setHelpUrl(mainUrl + 'basic/index.html' + utmUrl); 
   }
 };
+
+Blockly.Blocks['irraw_stop_receive'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldVariable("irraw"), "name_")
+      .appendField(Blockly.Msg.WEBDUINO_IRRAW_STOP_RECV, "停止偵測");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.setColour(65);
+    this.setHelpUrl(mainUrl + 'basic/index.html' + utmUrl); 
+  }
+};

@@ -6,7 +6,8 @@
     "blockly/javascript.js"
   ],
   "dependencies": [
-    "IrRaw.js",
+    "IrRawSend.js",
+    "irRawRecv.js",
     "IrRaw-blockly.js"
   ],
   "msg": "blockly/msg",

@@ -1,12 +1,12 @@
 Blockly.JavaScript['irraw_new_send'] = function (block) {
   var dropdown_pin_ = block.getFieldValue('pin_');
-  var code = 'getIrRaw(board, {"send":' + dropdown_pin_ + '})';
+  var code = 'getIrRawSend(board, ' + dropdown_pin_ + ')';
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
 Blockly.JavaScript['irraw_new_recv'] = function (block) {
   var dropdown_pin_ = block.getFieldValue('pin_');
-  var code = 'getIrRaw(board, {"recv":' + dropdown_pin_ + '})';
+  var code = 'getIrRawRecv(board, ' + dropdown_pin_ + ')';
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
@@ -36,4 +36,10 @@ Blockly.JavaScript['irraw_val'] = function (block) {
   var variable_name_ = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('name_'), Blockly.Variables.NAME_TYPE);
   var code = variable_name_ + '.onVal';
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.JavaScript['irraw_stop_receive'] = function (block) {
+  var variable_name_ = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('name_'), Blockly.Variables.NAME_TYPE);
+  var code = variable_name_ + '.stopRecv();\n';
+  return code;
 };

@@ -4,3 +4,4 @@ Blockly.Msg.WEBDUINO_IRRAW_LAUNCHCODE = 'Launch Codes (m-16):';
 Blockly.Msg.WEBDUINO_IRRAW_ON = 'Start Receiving Raw IR';
 Blockly.Msg.WEBDUINO_IRRAW_CODE = 'Received code';
 Blockly.Msg.WEBDUINO_IRRAW_DO = 'Do';
+Blockly.Msg.WEBDUINO_IRRAW_STOP_RECV = 'Stop detection';

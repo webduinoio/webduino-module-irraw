@@ -1,4 +1,4 @@
-<category id="catIrRaw" tags="fly,mark1" index="10">
+<category id="catIrRawV2" tags="fly,mark1" index="10">
   <block type="variables_set">
     <field name="VAR">irrawrecv</field>
     <value name="VALUE">
@@ -24,4 +24,5 @@
   </block>
   <block type="irraw_on"></block>
   <block type="irraw_val"></block>
+  <block type="irraw_stop_receive"></block>
 </category>
