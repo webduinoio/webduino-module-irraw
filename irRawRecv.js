@@ -52,7 +52,7 @@
     console.log("receive");
     self.irRecvCallback = callback;
     if (self._pinRecvIR > 0) {
-      self._board.send([0xF0, 0x04, 0x0A, 0x00, 0x02, 0xF7]);
+      self._board.send([0xF0, 0x04, 0x0A, 0x00, self._pinRecvIR, 0xF7]);
     }
   };
 
