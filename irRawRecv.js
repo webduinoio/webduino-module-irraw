@@ -12,7 +12,6 @@
   var self;
 
   function IrRawRecv(board, pinRecvIR) {
-    console.log("debug IrRawRecv");
     self = this;
     Module.call(self);
     self._board = board;
@@ -49,7 +48,6 @@
   });
 
   proto.receive = function (callback) {
-    console.log("receive");
     self.irRecvCallback = callback;
     if (self._pinRecvIR > 0) {
       self._board.send([0xF0, 0x04, 0x0A, 0x00, self._pinRecvIR, 0xF7]);
@@ -57,7 +55,6 @@
   };
 
   proto.stopRecv = function () {
-    console.log("stop receive");
     self._board.send([0xF0, 0x04, 0x0A, 0x01, 0xF7]);
   }
 
