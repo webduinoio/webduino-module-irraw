@@ -1,6 +1,3 @@
-/** 
- * For old version
- */
 +(function (factory) {
   if (typeof exports === 'undefined') {
     factory(webduino || {});
@@ -12,6 +9,7 @@
 
   var Module = scope.Module,
     BoardEvent = scope.BoardEvent;
+  var self;
   var proto;
   var sendLen = 32;
   var lastSendIR = false;
@@ -27,7 +25,7 @@
     Module.call(this);
     this._board = board;
     this.pinSendIR = this.pinRecvIR = -1;
-    // this = this;
+    self = this;
     if (typeof pinMapping === 'object') {
       if (pinMapping['send']) {
         this.pinSendIR = pinMapping['send'];
@@ -36,10 +34,10 @@
         this.pinRecvIR = pinMapping['recv'];
       }
     }
-    onMessage(this);
+    onMessage();
   }
 
-  function onMessage(self) {
+  function onMessage() {
     self._board.on(webduino.BoardEvent.SYSEX_MESSAGE, function (event) {
       var m = event.message;
       //send IR data to Board
@@ -63,8 +61,8 @@
         var strInfo = '';
         for (var i = 3; i < m.length; i++) {
           strInfo += String.fromCharCode(m[i]);
-        }      
-        self.irData = strInfo;
+        }
+        self.irData = strInfo.substring(4);
         self.irRecvCallback(self.irData);
       } else {
         log(event);
@@ -73,7 +71,7 @@
   }
 
 
-  function send(startPos, data, self) {
+  function send(startPos, data) {
     var CMD = [0xf0, 0x04, 0x09, 0x0A];
     var raw = [];
     raw = raw.concat(CMD);
@@ -90,14 +88,13 @@
       raw.push(data.charCodeAt(i));
     }
     raw.push(0xf7);
-    // console.log(raw);
     self._board.send(raw);
   }
 
-  function sendIRCmd(cmd, len, self) {
+  function sendIRCmd(cmd, len) {
     for (var i = 0; i < cmd.length; i = i + len) {
       var data = cmd.substring(i, i + len);
-      send(i / 4, data, self);
+      send(i / 8, data);
     }
     lastSendIR = true;
   }
@@ -109,26 +106,23 @@
   });
 
   proto.receive = function (callback) {
-    console.log("receive:" + this.pinRecvIR);
-    this.irRecvCallback = callback;
-    if (this.pinRecvIR > 0) {
-      // this._board.send([0xF0, 0x04, 0x09, 0x0D, this.pinRecvIR, 0xF7]);
-      this._board.send([0xF0, 0x04, 0x0A, 0x00, 0x02, 0xF7]);
+    self.irRecvCallback = callback;
+    if (self.pinRecvIR > 0) {
+      self._board.send([0xF0, 0x04, 0x09, 0x0D, self.pinRecvIR, 0xF7]);
       log("wait for receiving...");
     }
   };
 
   proto.send = function (data, callback) {
-    console.log("send:" + this.pinSendIR);
-    if (this.pinSendIR > 0) {
-      sendIRCmd(data, sendLen, this);
-      this.irSendCallback = callback;
+    if (self.pinSendIR > 0) {
+      sendIRCmd(data, sendLen);
+      self.irSendCallback = callback;
     }
   }
 
   proto.debug = function (val) {
     if (typeof val == 'boolean') {
-      this.isDebug = val;
+      self.isDebug = val;
     }
   }
 
