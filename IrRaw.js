@@ -1,3 +1,6 @@
+/**
+ * For old version
+ */
 +(function (factory) {
   if (typeof exports === 'undefined') {
     factory(webduino || {});

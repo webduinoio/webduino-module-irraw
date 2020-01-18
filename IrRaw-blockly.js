@@ -3,15 +3,15 @@
   'use strict';
 
   /* this function for old version */
-  window.getIrRaw = function (board, pinMapping) {
+  window.getIrRaw = (board, pinMapping) => {
     return new webduino.module.IrRaw(board, pinMapping);
   };
 
-  window.getIrRawSend = function (board, pinSendIR) {
+  window.getIrRawSend = (board, pinSendIR) => {
     return new webduino.module.IrRawSend(board, pinSendIR);
   };
 
-  window.getIrRawRecv = function (board, pinRecvIR) {
+  window.getIrRawRecv = (board, pinRecvIR) => {
     return new webduino.module.IrRawRecv(board, pinRecvIR);
   };
 

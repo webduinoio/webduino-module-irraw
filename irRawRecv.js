@@ -7,10 +7,16 @@
 }(function (scope) {
   'use strict';
 
-  var Module = scope.Module;
-  var proto;
-  var self;
-
+  let Module = scope.Module;
+  let proto;
+  let self;
+  let WEBDUINO_COMMAND = 0x04;
+  let SENSOR_RECV = 0x0A;
+  let INIT_RECV = 0x00;
+  let STOP_RECV = 0x01;
+  let RECORD_RAW_DATA = 0x02;
+  let RECORD_FINISH = 0x03;
+  
   function IrRawRecv(board, pinRecvIR) {
     self = this;
     Module.call(self);
@@ -23,18 +29,19 @@
 
   function onMessage() {
     self._board.on(webduino.BoardEvent.SYSEX_MESSAGE, function (event) {
-      var m = event.message;
+      let m = event.message;
 
-      //record IR data
-      if (m[0] == 0x04 && m[1] == 0x09 && m[2] == 0x0D) {
-        var strData = "";
-        for (var i = 3; i < m.length; i++) {
+      // record raw data
+      if (m[0] == WEBDUINO_COMMAND && m[1] == SENSOR_RECV && m[2] == RECORD_RAW_DATA) {
+        let strData = "";
+        for (let i = 3; i < m.length; i++) {
           strData += String.fromCharCode(m[i]);
         }
         self._irInfo += strData;
-
       }
-      else if (m[0] == 0x04 && m[1] == 0x09 && m[2] == 0x0E) {
+
+      // record finish
+      else if (m[0] == WEBDUINO_COMMAND && m[1] == SENSOR_RECV && m[2] == RECORD_FINISH) {
         self.irRecvCallback(self._irInfo);
         self._irInfo = "";
       }
@@ -47,15 +54,15 @@
     }
   });
 
-  proto.receive = function (callback) {
+  proto.receive = (callback) => {
     self.irRecvCallback = callback;
     if (self._pinRecvIR > 0) {
-      self._board.send([0xF0, 0x04, 0x0A, 0x00, self._pinRecvIR, 0xF7]);
+      self._board.send([0xF0, WEBDUINO_COMMAND, SENSOR_RECV, INIT_RECV, self._pinRecvIR, 0xF7]);
     }
   };
 
-  proto.stopRecv = function () {
-    self._board.send([0xF0, 0x04, 0x0A, 0x01, 0xF7]);
+  proto.stopRecv = () => {
+    self._board.send([0xF0, WEBDUINO_COMMAND, SENSOR_RECV, STOP_RECV, 0xF7]);
   }
 
   scope.module.IrRawRecv = IrRawRecv;
