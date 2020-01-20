@@ -16,7 +16,6 @@
   let proto;
   let sendLen = 32;
   let self;
-  // let lastSendIR = false;
 
   function IrRawSend(board, pinSendIR) {
     self = this;
@@ -29,15 +28,6 @@
   function onMessage() {
     self._board.on(webduino.BoardEvent.SYSEX_MESSAGE, function (event) {
       let m = event.message;
-
-      /*if (m[0] == WEBDUINO_COMMAND && m[1] == SENSOR_IRRSEND && m[2] == 0x0B) {
-        if (lastSendIR) {
-          //store OK
-          lastSendIR = false;
-          self._board.send([0xf0, WEBDUINO_COMMAND, SENSOR_IRRSEND, 0x0C, self._pinSendIR, 0xF7]);
-        }
-      }*/
-
       if (m[0] == WEBDUINO_COMMAND && m[1] == SENSOR_IRRSEND && m[2] == TRIGGER_IR) {
         self.irSendCallback();
       }
@@ -60,10 +50,11 @@
     // send raw data 
     CMD = [0xf0, WEBDUINO_COMMAND, SENSOR_IRRSEND, SEND_RAW_DATA];
     raw = raw.concat(CMD);
-    for (i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       raw.push(data.charCodeAt(i));
     }
     raw.push(0xf7);
+    // console.log(raw);
     self._board.send(raw);
   }
 
@@ -72,7 +63,6 @@
       let data = cmd.substring(i, i + len);
       send(i / 4, data);
     }
-    // lastSendIR = true;
     self._board.send([0xf0, WEBDUINO_COMMAND, SENSOR_IRRSEND, TRIGGER_IR, self._pinSendIR, 0xF7]);
   }
 

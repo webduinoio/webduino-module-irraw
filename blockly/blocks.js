@@ -56,7 +56,7 @@ Blockly.Blocks['irraw_launch'] = {
   init: function () {
     this.appendValueInput("code_")
       .setCheck("String")
-      .appendField(new Blockly.FieldVariable("irraw"), "name_")
+      .appendField(new Blockly.FieldVariable("irrawsend"), "name_")
       .appendField(Blockly.Msg.WEBDUINO_IRRAW_LAUNCHCODE, "發射代碼 ( 十六進位 )：");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -69,7 +69,7 @@ Blockly.Blocks['irraw_launch'] = {
 Blockly.Blocks['irraw_stop_receive'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(new Blockly.FieldVariable("irraw"), "name_")
+      .appendField(new Blockly.FieldVariable("irrawrecv"), "name_")
       .appendField(Blockly.Msg.WEBDUINO_IRRAW_STOP_RECV, "停止偵測");
     this.setPreviousStatement(true);
     this.setNextStatement(true);

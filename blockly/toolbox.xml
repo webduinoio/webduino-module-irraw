@@ -8,7 +8,7 @@
     </value>
   </block>
   <block type="variables_set">
-    <field name="VAR">irraw</field>
+    <field name="VAR">irrawsend</field>
     <value name="VALUE">
       <block type="irraw_new_send">
         <field name="pin_">9</field>
