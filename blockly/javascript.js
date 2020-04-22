@@ -23,12 +23,7 @@ Blockly.JavaScript['irraw_on'] = function (block) {
 Blockly.JavaScript['irraw_launch'] = function (block) {
   var variable_name_ = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('name_'), Blockly.Variables.NAME_TYPE);
   var value_code_ = Blockly.JavaScript.valueToCode(block, 'code_', Blockly.JavaScript.ORDER_ATOMIC);
-  var code;
-  if (value_code_.length > 2) {
-    code = variable_name_ + '.send(' + value_code_ + ',\n  function(){});\n';
-  } else {
-    code = variable_name_ + '.send("ffffffff");\n';
-  }
+  var code = variable_name_ + '.send(' + value_code_ + ',\n  function(){});\n';
   return code;
 };
 
